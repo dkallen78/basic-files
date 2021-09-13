@@ -28,13 +28,29 @@ function vw(v) {
 }
 
 //------------------------------------------------------//
-//Cartesian Math                                        //
+//Math                                                  //
 //------------------------------------------------------//
+
+function factorial(number) {
+  //----------------------------------------------------//
+  //Finds the factorial of a number                     //
+  //----------------------------------------------------//
+  //number(integer): number to find the factorial of    //
+  //----------------------------------------------------//
+  //return(integer): factorial value of the number      //
+  //----------------------------------------------------//
+
+  if (number === 1) {
+    return 1
+  } else {
+    return number * factorial(number - 1);
+  }
+}
 
 function dist(obj1, obj2) {
   /*----------------------------------------------------//
   //Finds the  distance between two points on a         //
-  //  cartesian plane                                   //
+  //  cartesian plane using the Pythagorean theorem     //
   //----------------------------------------------------//
   //obj1(Point): first point                            //
   //obj2(Point): second point                           //
@@ -43,6 +59,34 @@ function dist(obj1, obj2) {
   //----------------------------------------------------*/
 
   return (Math.sqrt(((obj1.x - obj2.x) ** 2) + ((obj1.y - obj2.y) ** 2))).toFixed(4);
+}
+
+function findSemiMinor(a, e) {
+  /*----------------------------------------------------//
+  //Finds the semi-minor axis of an ellipse             //
+  //----------------------------------------------------//
+  //a(float): semi-major axis of ellipse                //
+  //e(float): eccentricity of ellipse                   //
+  //----------------------------------------------------//
+  //return(float): semi-minor axis of an ellipse        //
+  //----------------------------------------------------*/
+
+  return (a * Math.sqrt(1 - (e ** 2)));
+}
+
+function findFocus(a, b) {
+  //----------------------------------------------------//
+  //Finds the distance from the center of an ellipse to //
+  //  its foci                                          //
+  //----------------------------------------------------//
+  //a(float): semi-major axis of ellipse                //
+  //b(float): semi-minor axis of ellipse                //
+  //----------------------------------------------------//
+  //return(float): distance from center of an ellipse   //
+  //  to its foci                                       //
+  //----------------------------------------------------//
+
+  return (Math.sqrt((a ** 2) - (b ** 2)));
 }
 
 //------------------------------------------------------//
