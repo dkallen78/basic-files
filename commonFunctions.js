@@ -47,20 +47,6 @@ function factorial(number) {
   }
 }
 
-function dist(obj1, obj2) {
-  /*----------------------------------------------------//
-  //Finds the  distance between two points on a         //
-  //  cartesian plane using the Pythagorean theorem     //
-  //----------------------------------------------------//
-  //obj1(Point): first point                            //
-  //obj2(Point): second point                           //
-  //----------------------------------------------------//
-  //return(float): distance between two points          //
-  //----------------------------------------------------*/
-
-  return (Math.sqrt(((obj1.x - obj2.x) ** 2) + ((obj1.y - obj2.y) ** 2))).toFixed(4);
-}
-
 function findSemiMinor(a, e) {
   /*----------------------------------------------------//
   //Finds the semi-minor axis of an ellipse             //
@@ -89,6 +75,90 @@ function findFocus(a, b) {
   return (Math.sqrt((a ** 2) - (b ** 2)));
 }
 
+function toRad(deg) {
+	//----------------------------------------------------//
+	//Converts an angle in degrees to an angle in radians	//
+	//----------------------------------------------------//
+	//deg(float): angle to be converted to radians				//
+	//----------------------------------------------------//
+	//return(float): converted degrees in radians					//
+	//----------------------------------------------------//
+
+	return deg * (Math.PI / 180);
+}
+
+function toDeg(rad) {
+	//----------------------------------------------------//
+	//Converts an angle in radians to an angle in degrees	//
+	//----------------------------------------------------//
+	//deg(float): angle to be converted to degrees				//
+	//----------------------------------------------------//
+	//return(float): converted radians in degrees					//
+	//----------------------------------------------------//
+
+	return rad * (180 / Math.PI);
+}
+
+class Point {
+	//----------------------------------------------------//
+	//A data structure to make managing and representing	//
+	//	Cartesian points easier														//
+	//----------------------------------------------------//
+	//x(float): x coordinate of the point									//
+	//y(float): y coordinate of the point									//
+	//----------------------------------------------------//
+
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+
+	static center(p1, p2) {
+		//----------------------------------------------------//
+		//Finds the center point between p1 and p2						//
+		//----------------------------------------------------//
+		//p1, p2(Point): points to find the center of					//
+		//----------------------------------------------------//
+		//return(Point): the point at the midpoint between the//
+		//	original two points																//
+		//----------------------------------------------------//
+
+		const midX = (p1.x + p2.x) / 2;
+		const midY = (p1.y + p2.y) / 2;
+		const newCenter = new Point(midX, midY);
+		return newCenter;
+	}
+
+  static distance(p1, p2) {
+    /*----------------------------------------------------//
+    //Finds the  distance between two points on a         //
+    //  cartesian plane using the Pythagorean theorem     //
+    //----------------------------------------------------//
+    //p1(Point): first point                              //
+    //p2(Point): second point                             //
+    //----------------------------------------------------//
+    //return(float): distance between two points          //
+    //----------------------------------------------------*/
+  
+    return (Math.sqrt(((p1.x - p2.x) ** 2) + ((p1.y - p2.y) ** 2))).toFixed(4);
+  }
+
+	static vector(p1, p2) {
+		//----------------------------------------------------//
+		//Finds the vector from p1 to p2											//
+		//----------------------------------------------------//
+		//p1, p2(Point): points on the vector to be found			//
+		//----------------------------------------------------//
+		//return(Point): the vector from p1 to p2							//
+		//----------------------------------------------------//
+
+		const vecX = (p1.x - p2.x);
+		const vecY = (p1.y - p2.y);
+		const newVector = new Point(vecX, vecY);
+		return newVector;
+	}
+}
+
 //------------------------------------------------------//
 //DOM manipulation                                      //
 //------------------------------------------------------//
@@ -108,6 +178,24 @@ function makeSVG(type, id, ...classes) {
   if (typeof id === "string") {svg.id = id}
   classes.forEach(x => svg.classList.add(x));
   return svg;
+}
+
+function makeSVGcircle(x, y, r) {
+  //----------------------------------------------------//
+  //Makes an SVG <circle> element                       //
+  //----------------------------------------------------//
+  //x(float): the x coordinate of the circle's center   //
+  //y(float): the y coordinate of the circle's center   //
+  //r(float): the radius of the circle                  //
+  //----------------------------------------------------//
+  //return(element): SVG <circle> element               //
+  //----------------------------------------------------//
+
+  let circle = makeSVG("circle");
+  circle.setAttribute("cx", x);
+  circle.setAttribute("cy", y);
+  circle.setAttribute("r", r);
+  return circle;
 }
 
 function makeElement(type, id, ...classes) {
@@ -139,10 +227,7 @@ function makeImg(src, id, ...classes) {
   //----------------------------------------------------//
 
   let img = makeElement("img", id, ...classes);
-  //let img = document.createElement("img");
   img.src = src;
-  //if (typeof id === "string") {img.id = id}
-  //classes.forEach(x => img.classList.add(x));
   return img;
 }
 
